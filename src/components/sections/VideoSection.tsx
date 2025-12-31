@@ -8,6 +8,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useState, useRef, useEffect } from 'react';
+import an_year_with_you from "../../assets/an-year-with-you_vid.mp4"
 
 export const VideoSection = () => {
   const { ref, isInView } = useScrollAnimation();
@@ -150,7 +151,7 @@ export const VideoSection = () => {
                     className="w-full h-full object-contain" 
                     playsInline
                     onClick={(e) => e.stopPropagation()} // Let container handle click for better UX
-                    src="/path-to-your-video.mp4" // Placeholder
+                    src={an_year_with_you} // Placeholder
                   >
                     Your browser does not support the video tag.
                   </video>
