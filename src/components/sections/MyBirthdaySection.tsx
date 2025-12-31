@@ -51,9 +51,9 @@ export const MyBirthdaySection = () => {
             </p>
 
             <p className="prose-story">
-              A cake appeared on my screen,<br />
-              held up by your hands,<br />
-              candles flickering in your living room.
+              You sent a cake and decorations,<br />
+              didn't expect that at all<br/>
+              but you made my day worth remembering.
             </p>
 
             {/* Placeholder for image */}
