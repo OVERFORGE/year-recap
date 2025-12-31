@@ -1,12 +1,34 @@
 import { motion } from 'framer-motion';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { Play, Pause, Volume2 } from 'lucide-react';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import anYearWithYou from '@/assets/an_year_with_you.mp3';
 
 export const VoiceNoteSection = () => {
   const { ref, isInView } = useScrollAnimation();
   const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
   const audioRef = useRef<HTMLAudioElement>(null);
+
+  const formatTime = (time: number) => {
+    if (!time || isNaN(time)) return "0:00";
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  };
+
+  const handleTimeUpdate = () => {
+    if (audioRef.current) {
+      setCurrentTime(audioRef.current.currentTime);
+    }
+  };
+
+  const handleLoadedMetadata = () => {
+    if (audioRef.current) {
+      setDuration(audioRef.current.duration);
+    }
+  };
 
   const togglePlay = () => {
     if (audioRef.current) {
@@ -54,8 +76,10 @@ export const VoiceNoteSection = () => {
             >
               <audio 
                 ref={audioRef}
-                src="/voice-note.mp3"
+                src={anYearWithYou}
                 onEnded={() => setIsPlaying(false)}
+                onTimeUpdate={handleTimeUpdate}
+                onLoadedMetadata={handleLoadedMetadata}
               />
 
               <div className="flex items-center gap-4">
@@ -93,7 +117,7 @@ export const VoiceNoteSection = () => {
               </div>
               
               <p className="text-text-muted/60 text-sm">
-                0:00 / 0:00 • voice-note.mp3
+                {formatTime(currentTime)} / {formatTime(duration)} • an_year_with_you.mp3
               </p>
             </motion.div>
 
